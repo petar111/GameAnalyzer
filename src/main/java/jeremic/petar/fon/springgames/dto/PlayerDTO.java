@@ -3,12 +3,23 @@ package jeremic.petar.fon.springgames.dto;
 import jeremic.petar.fon.springgames.entity.Payoff;
 
 import java.util.List;
+import java.util.Set;
 
 public class PlayerDTO {
     private Long id;
     private String name;
 
     private List<PayoffDTO> payoffs;
+
+    private Set<StrategyDTO> playableStrategies;
+
+    public Set<StrategyDTO> getPlayableStrategies() {
+        return playableStrategies;
+    }
+
+    public void setPlayableStrategies(Set<StrategyDTO> playableStrategies) {
+        this.playableStrategies = playableStrategies;
+    }
 
     public Long getId() {
         return id;

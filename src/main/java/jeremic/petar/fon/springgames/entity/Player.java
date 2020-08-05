@@ -4,9 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Data
 @Table(name = "player_configuration")
 public class Player {
     @Id
@@ -19,6 +19,24 @@ public class Player {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_player_configuration")
     List<Payoff> payoffs;
+
+
+    @ManyToMany
+            @JoinTable(
+                    name = "payoff",
+                    joinColumns = @JoinColumn(name = "id_player_configuration"),
+                    inverseJoinColumns = @JoinColumn(name = "id_strategy")
+            )
+    Set<Strategy> playableStrategies;
+
+
+    public Set<Strategy> getPlayableStrategies() {
+        return playableStrategies;
+    }
+
+    public void setPlayableStrategies(Set<Strategy> playableStrategies) {
+        this.playableStrategies = playableStrategies;
+    }
 
     public Long getId() {
         return id;

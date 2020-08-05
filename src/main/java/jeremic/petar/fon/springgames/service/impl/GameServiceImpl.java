@@ -54,6 +54,8 @@ public class GameServiceImpl implements GameService {
                                     if(strategy.getName().equals(payoff.getOpposingStrategy().getName()))
                                         payoff.setOpposingStrategy(strategy);  } )));
 
+
+
         Game savedGame = gameRepository.save(gameEntity);
         return gameMapper.toDto(savedGame);
     }
@@ -62,7 +64,7 @@ public class GameServiceImpl implements GameService {
     public GameDTO findByName(String name) {
         return gameMapper.toDto(gameRepository.findByName(name).orElseThrow(() ->
                 new RuntimeException("Game with name not found")
-        ));
+        )); // TODO: Case when there is more than one game by that name
     }
 
 

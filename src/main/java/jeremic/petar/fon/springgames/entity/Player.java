@@ -3,8 +3,10 @@ package jeremic.petar.fon.springgames.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "player_configuration")
@@ -21,12 +23,7 @@ public class Player {
     List<Payoff> payoffs;
 
 
-    @ManyToMany
-            @JoinTable(
-                    name = "payoff",
-                    joinColumns = @JoinColumn(name = "id_player_configuration"),
-                    inverseJoinColumns = @JoinColumn(name = "id_strategy")
-            )
+    @Transient
     Set<Strategy> playableStrategies;
 
 
@@ -34,8 +31,11 @@ public class Player {
         return playableStrategies;
     }
 
-    public void setPlayableStrategies(Set<Strategy> playableStrategies) {
-        this.playableStrategies = playableStrategies;
+    @PostLoad
+    public void setPlayableStrategies() {
+        Set<Strategy> uniqueStrategies = new HashSet<>();
+        this.getPayoffs().forEach(p -> uniqueStrategies.add(p.getPlayedStrategy()));
+        this.playableStrategies = uniqueStrategies;
     }
 
     public Long getId() {
@@ -60,5 +60,8 @@ public class Player {
 
     public void setPayoffs(List<Payoff> payoffs) {
         this.payoffs = payoffs;
+    }
+
+    public Player() {
     }
 }

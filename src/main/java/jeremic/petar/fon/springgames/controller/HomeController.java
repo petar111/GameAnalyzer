@@ -20,7 +20,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "home")
-@CrossOrigin
 public class HomeController {
 
     private final CreatureRepository creatureRepository;
@@ -56,6 +55,13 @@ public class HomeController {
 
     @PostMapping(path = "/creature/insert")
     public ResponseEntity<String> insertGame(@RequestBody CreatureDTO creature){
+        Creature creatureEntity = creatureMapper.toEntity(creature);
+        creatureRepository.save(creatureEntity);
+        return new ResponseEntity<>("Creature is saved", HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/creature/update")
+    public ResponseEntity<String> updateCreature(@RequestBody CreatureDTO creature){
         Creature creatureEntity = creatureMapper.toEntity(creature);
         creatureRepository.save(creatureEntity);
         return new ResponseEntity<>("Creature is saved", HttpStatus.OK);

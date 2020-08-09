@@ -6,6 +6,7 @@ import jeremic.petar.fon.springgames.dto.PowerStatDto;
 import jeremic.petar.fon.springgames.entity.Creature;
 import jeremic.petar.fon.springgames.entity.PowerStat;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {StatMapper.class})
 public interface CreatureMapper {
@@ -17,5 +18,11 @@ public interface CreatureMapper {
     PowerStatDto toPowerStatDto(PowerStat powerStat);
 
     PowerStat toPowerStatEntity(PowerStatDto powerStatDto);
+
+//    @Mapping(target = "powerStats", ignore = true)
+//    CreatureDTO toBasicsDto(Creature creature);
+//
+//    @Mapping(target = "powerStats", ignore = true)
+//    Creature toBasicsEntity(CreatureDTO creatureDTO);
 
 }

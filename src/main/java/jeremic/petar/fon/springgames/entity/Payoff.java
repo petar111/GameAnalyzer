@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "payoff")
@@ -25,6 +26,14 @@ public class Payoff {
     @JoinColumn(name = "id_opposing_strategy")
     private Strategy opposingStrategy;
 
+    public Payoff() {
+    }
+
+    public Payoff(double amount, Strategy playedStrategy, Strategy opposingStrategy) {
+        this.amount = amount;
+        this.playedStrategy = playedStrategy;
+        this.opposingStrategy = opposingStrategy;
+    }
 
     public Long getId() {
         return id;
@@ -56,5 +65,20 @@ public class Payoff {
 
     public void setOpposingStrategy(Strategy opposingStrategy) {
         this.opposingStrategy = opposingStrategy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Payoff)) return false;
+        Payoff payoff = (Payoff) o;
+        return Double.compare(payoff.getAmount(), getAmount()) == 0 &&
+                getPlayedStrategy().equals(payoff.getPlayedStrategy()) &&
+                getOpposingStrategy().equals(payoff.getOpposingStrategy());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAmount(), getPlayedStrategy(), getOpposingStrategy());
     }
 }

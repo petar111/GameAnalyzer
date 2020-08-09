@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="relative"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="siux (generated)" id="10001">
+        <createTable tableName="stat">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stat_type_id" type="VARCHAR(255)">
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="siux (generated)" id="10002">
+        <createTable tableName="stat_type">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  author="siux"  id="50004">
+        <modifyDataType
+                columnName="stat_type_id"
+                newDataType="BIGINT UNSIGNED"
+                tableName="stat"/>
+
+        <addNotNullConstraint
+                columnDataType="BIGINT UNSIGNED"
+                columnName="stat_type_id"
+                tableName="stat"
+                validate="true"/>
+
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="10003">
+        <addForeignKeyConstraint baseColumnNames="stat_type_id" baseTableName="stat" constraintName="stat_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="stat_type" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -43,6 +43,10 @@
 			<version>4.0.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 
 
 		<dependency>
@@ -111,11 +115,12 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.0.0</version>
 				<configuration>
-					<outputChangeLogFile>classpath:db/changelog/changelog_db-v0.1.xml</outputChangeLogFile> <!-- For generating from existing database -->
+					<outputChangeLogFile>src/main/resources/db/changelog/db_changelog_generated.xml</outputChangeLogFile> <!-- For generating from existing database -->
 					<changeLogFile>classpath:db/changelog/changelog-master.xml</changeLogFile>
 					<driver>com.mysql.cj.jdbc.Driver</driver>
 					<username>root</username>
 					<url>jdbc:mysql://localhost:3306/game_assisstant_v2</url>
+					<diffTypes>data</diffTypes>
 					<password></password>
 				</configuration>
 			</plugin>

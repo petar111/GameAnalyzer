@@ -2,7 +2,7 @@ package jeremic.petar.fon.springgames.security.jwt;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jeremic.petar.fon.springgames.communication.HttpResponse;
+import jeremic.petar.fon.springgames.communication.HttpErrorResponse;
 import jeremic.petar.fon.springgames.security.constants.SecurityConstants;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
@@ -24,7 +24,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
                        AccessDeniedException e) throws IOException {
-        HttpResponse httpResponse = new HttpResponse(
+        HttpErrorResponse httpErrorResponse = new HttpErrorResponse(
                 UNAUTHORIZED.value(),
                 UNAUTHORIZED,
                 UNAUTHORIZED.getReasonPhrase().toUpperCase(),
@@ -33,7 +33,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         response.setStatus(FORBIDDEN.value());
         OutputStream outputStream = response.getOutputStream();
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(outputStream, httpResponse);
+        mapper.writeValue(outputStream, httpErrorResponse);
         outputStream.flush();
 
     }

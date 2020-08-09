@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="relative"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet author="siux (generated)" id="1596290378901-1">
+        <createTable tableName="creature">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="diet_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-2">
+        <createTable tableName="game">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="external_info" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-3">
+        <createTable tableName="payoff">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="id_player_configuration" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="id_strategy" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="id_opposing_strategy" type="BIGINT UNSIGNED"/>
+            <column name="amount" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-4">
+        <createTable tableName="player_configuration">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="game_id" type="BIGINT UNSIGNED"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-5">
+        <createTable tableName="strategy">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="game_id" type="BIGINT UNSIGNED"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-11">
+        <addForeignKeyConstraint baseColumnNames="id_player_configuration" baseTableName="payoff" constraintName="payoff_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="player_configuration" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-12">
+        <addForeignKeyConstraint baseColumnNames="id_strategy" baseTableName="payoff" constraintName="payoff_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="strategy" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-13">
+        <addForeignKeyConstraint baseColumnNames="id_opposing_strategy" baseTableName="payoff" constraintName="payoff_ibfk_3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="strategy" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-14">
+        <addForeignKeyConstraint baseColumnNames="game_id" baseTableName="player_configuration" constraintName="player_configuration_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="game" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596290378901-15">
+        <addForeignKeyConstraint baseColumnNames="game_id" baseTableName="strategy" constraintName="strategy_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="game" validate="true"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>

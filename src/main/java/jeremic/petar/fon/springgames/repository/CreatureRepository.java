@@ -11,4 +11,6 @@ public interface CreatureRepository extends JpaRepository<Creature, Long> {
 
     Optional<Creature> findById(Long id);
 
+    @Override
+    <S extends Creature> S save(S s);
 }

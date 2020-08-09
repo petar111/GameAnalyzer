@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -62,9 +61,11 @@ public class HomeController {
 
     @PostMapping(path = "/creature/update")
     public ResponseEntity<String> updateCreature(@RequestBody CreatureDTO creature){
-        Creature creatureEntity = creatureMapper.toEntity(creature);
+        Creature creatureEntity = creatureRepository.findById(creature.getId()).get();
+        creatureEntity.setName(creature.getName());
+        creatureEntity.setDietType(creature.getDietType());
         creatureRepository.save(creatureEntity);
-        return new ResponseEntity<>("Creature is saved", HttpStatus.OK);
+        return new ResponseEntity<>("Creature is updated", HttpStatus.OK);
     }
 
     @PostMapping(path = "/game/insert")

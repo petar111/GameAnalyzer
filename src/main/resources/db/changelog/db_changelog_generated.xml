@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="relative"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+
+    <changeSet author="siux (generated)" id="1596987661990-1">
+        <createTable tableName="creature">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="diet_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-2">
+        <createTable tableName="creature_stat">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="creature_id" type="BIGINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stat_id" type="BIGINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="power_amount" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-3">
+        <createTable tableName="game">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="external_info" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-4">
+        <createTable tableName="payoff">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="id_player_configuration" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="id_strategy" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="id_opposing_strategy" type="BIGINT UNSIGNED"/>
+            <column name="amount" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-5">
+        <createTable tableName="player_configuration">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="game_id" type="BIGINT UNSIGNED"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-6">
+        <createTable tableName="stat">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stat_type_id" type="BIGINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-7">
+        <createTable tableName="stat_type">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-8">
+        <createTable tableName="strategy">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="game_id" type="BIGINT UNSIGNED"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-9">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="Not stated" name="country" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="date_of_birth" type="date"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_account_non_expired" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_account_non_locked" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_enabled" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_credentials_non_expired" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-10">
+        <createIndex indexName="fk_creature_creature_stat_1" tableName="creature_stat">
+            <column name="creature_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-11">
+        <createIndex indexName="fk_stat_creature_stat_1" tableName="creature_stat">
+            <column name="stat_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-12">
+        <createIndex indexName="game_id" tableName="player_configuration">
+            <column defaultValueComputed="NULL" name="game_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-13">
+        <createIndex indexName="game_id" tableName="strategy">
+            <column defaultValueComputed="NULL" name="game_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-14">
+        <createIndex indexName="id_opposing_strategy" tableName="payoff">
+            <column defaultValueComputed="NULL" name="id_opposing_strategy"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-15">
+        <createIndex indexName="id_player_configuration" tableName="payoff">
+            <column defaultValueComputed="NULL" name="id_player_configuration"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-16">
+        <createIndex indexName="id_strategy" tableName="payoff">
+            <column defaultValueComputed="NULL" name="id_strategy"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-17">
+        <createIndex indexName="stat_ibfk_1" tableName="stat">
+            <column name="stat_type_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-18">
+        <addForeignKeyConstraint baseColumnNames="creature_id" baseTableName="creature_stat" constraintName="fk_creature_creature_stat_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="creature" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-19">
+        <addForeignKeyConstraint baseColumnNames="stat_id" baseTableName="creature_stat" constraintName="fk_stat_creature_stat_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="stat" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-20">
+        <addForeignKeyConstraint baseColumnNames="id_player_configuration" baseTableName="payoff" constraintName="payoff_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="player_configuration" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-21">
+        <addForeignKeyConstraint baseColumnNames="id_strategy" baseTableName="payoff" constraintName="payoff_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="strategy" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-22">
+        <addForeignKeyConstraint baseColumnNames="id_opposing_strategy" baseTableName="payoff" constraintName="payoff_ibfk_3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="strategy" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-23">
+        <addForeignKeyConstraint baseColumnNames="game_id" baseTableName="player_configuration" constraintName="player_configuration_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="game" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-24">
+        <addForeignKeyConstraint baseColumnNames="stat_type_id" baseTableName="stat" constraintName="stat_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="stat_type" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596987661990-25">
+        <addForeignKeyConstraint baseColumnNames="game_id" baseTableName="strategy" constraintName="strategy_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="game" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-1">
+        <insert tableName="creature">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Minotaur"/>
+            <column name="diet_type" value="omnivore"/>
+        </insert>
+        <insert tableName="creature">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Centaur"/>
+            <column name="diet_type" value="omnivore"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-2">
+        <insert tableName="creature_stat">
+            <column name="id" valueNumeric="1"/>
+            <column name="creature_id" valueNumeric="1"/>
+            <column name="stat_id" valueNumeric="2"/>
+            <column name="power_amount" valueNumeric="44"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-3">
+        <insert tableName="game">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Coordination"/>
+            <column name="external_info" value="Info"/>
+            <column name="description" value="Desc"/>
+        </insert>
+        <insert tableName="game">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Prisoner's Dillema"/>
+            <column name="external_info" value="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma"/>
+            <column name="description" value="Most interesting game to study."/>
+        </insert>
+        <insert tableName="game">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Custom game"/>
+            <column name="external_info" value="INFO"/>
+            <column name="description" value="DESC"/>
+        </insert>
+        <insert tableName="game">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Rata"/>
+            <column name="external_info" value="IFO"/>
+            <column name="description" value="DESC"/>
+        </insert>
+        <insert tableName="game">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="Deer"/>
+            <column name="external_info" value="IFO"/>
+            <column name="description" value="DESC"/>
+        </insert>
+        <insert tableName="game">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="CustomGame1"/>
+            <column name="external_info" value="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma"/>
+            <column name="description" value="DESC"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-4">
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="1"/>
+            <column name="id_player_configuration" valueNumeric="1"/>
+            <column name="id_strategy" valueNumeric="1"/>
+            <column name="id_opposing_strategy" valueNumeric="1"/>
+            <column name="amount" valueNumeric="4"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="2"/>
+            <column name="id_player_configuration" valueNumeric="1"/>
+            <column name="id_strategy" valueNumeric="1"/>
+            <column name="id_opposing_strategy" valueNumeric="2"/>
+            <column name="amount" valueNumeric="0"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="3"/>
+            <column name="id_player_configuration" valueNumeric="1"/>
+            <column name="id_strategy" valueNumeric="2"/>
+            <column name="id_opposing_strategy" valueNumeric="1"/>
+            <column name="amount" valueNumeric="0"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="4"/>
+            <column name="id_player_configuration" valueNumeric="1"/>
+            <column name="id_strategy" valueNumeric="2"/>
+            <column name="id_opposing_strategy" valueNumeric="2"/>
+            <column name="amount" valueNumeric="4"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="5"/>
+            <column name="id_player_configuration" valueNumeric="2"/>
+            <column name="id_strategy" valueNumeric="1"/>
+            <column name="id_opposing_strategy" valueNumeric="1"/>
+            <column name="amount" valueNumeric="4"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="6"/>
+            <column name="id_player_configuration" valueNumeric="2"/>
+            <column name="id_strategy" valueNumeric="1"/>
+            <column name="id_opposing_strategy" valueNumeric="2"/>
+            <column name="amount" valueNumeric="0"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="7"/>
+            <column name="id_player_configuration" valueNumeric="2"/>
+            <column name="id_strategy" valueNumeric="2"/>
+            <column name="id_opposing_strategy" valueNumeric="1"/>
+            <column name="amount" valueNumeric="0"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="8"/>
+            <column name="id_player_configuration" valueNumeric="2"/>
+            <column name="id_strategy" valueNumeric="2"/>
+            <column name="id_opposing_strategy" valueNumeric="2"/>
+            <column name="amount" valueNumeric="4"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="17"/>
+            <column name="id_player_configuration" valueNumeric="5"/>
+            <column name="id_strategy" valueNumeric="7"/>
+            <column name="id_opposing_strategy" valueNumeric="7"/>
+            <column name="amount" valueNumeric="3"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="18"/>
+            <column name="id_player_configuration" valueNumeric="5"/>
+            <column name="id_strategy" valueNumeric="7"/>
+            <column name="id_opposing_strategy" valueNumeric="8"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="19"/>
+            <column name="id_player_configuration" valueNumeric="5"/>
+            <column name="id_strategy" valueNumeric="8"/>
+            <column name="id_opposing_strategy" valueNumeric="7"/>
+            <column name="amount" valueNumeric="4"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="20"/>
+            <column name="id_player_configuration" valueNumeric="5"/>
+            <column name="id_strategy" valueNumeric="8"/>
+            <column name="id_opposing_strategy" valueNumeric="8"/>
+            <column name="amount" valueNumeric="2"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="21"/>
+            <column name="id_player_configuration" valueNumeric="6"/>
+            <column name="id_strategy" valueNumeric="7"/>
+            <column name="id_opposing_strategy" valueNumeric="7"/>
+            <column name="amount" valueNumeric="3"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="22"/>
+            <column name="id_player_configuration" valueNumeric="6"/>
+            <column name="id_strategy" valueNumeric="8"/>
+            <column name="id_opposing_strategy" valueNumeric="7"/>
+            <column name="amount" valueNumeric="4"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="23"/>
+            <column name="id_player_configuration" valueNumeric="6"/>
+            <column name="id_strategy" valueNumeric="7"/>
+            <column name="id_opposing_strategy" valueNumeric="8"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="24"/>
+            <column name="id_player_configuration" valueNumeric="6"/>
+            <column name="id_strategy" valueNumeric="8"/>
+            <column name="id_opposing_strategy" valueNumeric="8"/>
+            <column name="amount" valueNumeric="2"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="25"/>
+            <column name="id_player_configuration" valueNumeric="7"/>
+            <column name="id_strategy" valueNumeric="9"/>
+            <column name="id_opposing_strategy" valueNumeric="11"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="26"/>
+            <column name="id_player_configuration" valueNumeric="7"/>
+            <column name="id_strategy" valueNumeric="9"/>
+            <column name="id_opposing_strategy" valueNumeric="12"/>
+            <column name="amount" valueNumeric="11"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="27"/>
+            <column name="id_player_configuration" valueNumeric="7"/>
+            <column name="id_strategy" valueNumeric="11"/>
+            <column name="id_opposing_strategy" valueNumeric="11"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="28"/>
+            <column name="id_player_configuration" valueNumeric="7"/>
+            <column name="id_strategy" valueNumeric="11"/>
+            <column name="id_opposing_strategy" valueNumeric="12"/>
+            <column name="amount" valueNumeric="11"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="29"/>
+            <column name="id_player_configuration" valueNumeric="8"/>
+            <column name="id_strategy" valueNumeric="11"/>
+            <column name="id_opposing_strategy" valueNumeric="9"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="30"/>
+            <column name="id_player_configuration" valueNumeric="8"/>
+            <column name="id_strategy" valueNumeric="12"/>
+            <column name="id_opposing_strategy" valueNumeric="9"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="31"/>
+            <column name="id_player_configuration" valueNumeric="8"/>
+            <column name="id_strategy" valueNumeric="11"/>
+            <column name="id_opposing_strategy" valueNumeric="11"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="32"/>
+            <column name="id_player_configuration" valueNumeric="8"/>
+            <column name="id_strategy" valueNumeric="12"/>
+            <column name="id_opposing_strategy" valueNumeric="11"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="33"/>
+            <column name="id_player_configuration" valueNumeric="9"/>
+            <column name="id_strategy" valueNumeric="16"/>
+            <column name="id_opposing_strategy" valueNumeric="15"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="34"/>
+            <column name="id_player_configuration" valueNumeric="9"/>
+            <column name="id_strategy" valueNumeric="16"/>
+            <column name="id_opposing_strategy" valueNumeric="16"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="35"/>
+            <column name="id_player_configuration" valueNumeric="9"/>
+            <column name="id_strategy" valueNumeric="14"/>
+            <column name="id_opposing_strategy" valueNumeric="15"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="36"/>
+            <column name="id_player_configuration" valueNumeric="9"/>
+            <column name="id_strategy" valueNumeric="14"/>
+            <column name="id_opposing_strategy" valueNumeric="16"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="37"/>
+            <column name="id_player_configuration" valueNumeric="10"/>
+            <column name="id_strategy" valueNumeric="15"/>
+            <column name="id_opposing_strategy" valueNumeric="16"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="38"/>
+            <column name="id_player_configuration" valueNumeric="10"/>
+            <column name="id_strategy" valueNumeric="16"/>
+            <column name="id_opposing_strategy" valueNumeric="16"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="39"/>
+            <column name="id_player_configuration" valueNumeric="10"/>
+            <column name="id_strategy" valueNumeric="15"/>
+            <column name="id_opposing_strategy" valueNumeric="14"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="40"/>
+            <column name="id_player_configuration" valueNumeric="10"/>
+            <column name="id_strategy" valueNumeric="16"/>
+            <column name="id_opposing_strategy" valueNumeric="14"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="41"/>
+            <column name="id_player_configuration" valueNumeric="11"/>
+            <column name="id_strategy" valueNumeric="19"/>
+            <column name="id_opposing_strategy" valueNumeric="19"/>
+            <column name="amount" valueNumeric="11"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="42"/>
+            <column name="id_player_configuration" valueNumeric="11"/>
+            <column name="id_strategy" valueNumeric="19"/>
+            <column name="id_opposing_strategy" valueNumeric="20"/>
+            <column name="amount" valueNumeric="11"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="43"/>
+            <column name="id_player_configuration" valueNumeric="11"/>
+            <column name="id_strategy" valueNumeric="20"/>
+            <column name="id_opposing_strategy" valueNumeric="19"/>
+            <column name="amount" valueNumeric="22"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="44"/>
+            <column name="id_player_configuration" valueNumeric="11"/>
+            <column name="id_strategy" valueNumeric="20"/>
+            <column name="id_opposing_strategy" valueNumeric="20"/>
+            <column name="amount" valueNumeric="22"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="45"/>
+            <column name="id_player_configuration" valueNumeric="12"/>
+            <column name="id_strategy" valueNumeric="19"/>
+            <column name="id_opposing_strategy" valueNumeric="19"/>
+            <column name="amount" valueNumeric="11"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="46"/>
+            <column name="id_player_configuration" valueNumeric="12"/>
+            <column name="id_strategy" valueNumeric="20"/>
+            <column name="id_opposing_strategy" valueNumeric="19"/>
+            <column name="amount" valueNumeric="11"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="47"/>
+            <column name="id_player_configuration" valueNumeric="12"/>
+            <column name="id_strategy" valueNumeric="19"/>
+            <column name="id_opposing_strategy" valueNumeric="20"/>
+            <column name="amount" valueNumeric="22"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="48"/>
+            <column name="id_player_configuration" valueNumeric="12"/>
+            <column name="id_strategy" valueNumeric="20"/>
+            <column name="id_opposing_strategy" valueNumeric="20"/>
+            <column name="amount" valueNumeric="22"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="81"/>
+            <column name="id_player_configuration" valueNumeric="19"/>
+            <column name="id_strategy" valueNumeric="47"/>
+            <column name="id_opposing_strategy" valueNumeric="47"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="82"/>
+            <column name="id_player_configuration" valueNumeric="19"/>
+            <column name="id_strategy" valueNumeric="47"/>
+            <column name="id_opposing_strategy" valueNumeric="48"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="83"/>
+            <column name="id_player_configuration" valueNumeric="19"/>
+            <column name="id_strategy" valueNumeric="46"/>
+            <column name="id_opposing_strategy" valueNumeric="47"/>
+            <column name="amount" valueNumeric="2"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="84"/>
+            <column name="id_player_configuration" valueNumeric="19"/>
+            <column name="id_strategy" valueNumeric="46"/>
+            <column name="id_opposing_strategy" valueNumeric="48"/>
+            <column name="amount" valueNumeric="2"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="85"/>
+            <column name="id_player_configuration" valueNumeric="20"/>
+            <column name="id_strategy" valueNumeric="47"/>
+            <column name="id_opposing_strategy" valueNumeric="47"/>
+            <column name="amount" valueNumeric="1"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="86"/>
+            <column name="id_player_configuration" valueNumeric="20"/>
+            <column name="id_strategy" valueNumeric="48"/>
+            <column name="id_opposing_strategy" valueNumeric="47"/>
+            <column name="amount" valueNumeric="2"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="87"/>
+            <column name="id_player_configuration" valueNumeric="20"/>
+            <column name="id_strategy" valueNumeric="47"/>
+            <column name="id_opposing_strategy" valueNumeric="46"/>
+            <column name="amount" valueNumeric="2"/>
+        </insert>
+        <insert tableName="payoff">
+            <column name="id" valueNumeric="88"/>
+            <column name="id_player_configuration" valueNumeric="20"/>
+            <column name="id_strategy" valueNumeric="48"/>
+            <column name="id_opposing_strategy" valueNumeric="46"/>
+            <column name="amount" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-5">
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="1"/>
+            <column name="game_id" valueNumeric="1"/>
+            <column name="name" value="Player1"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="2"/>
+            <column name="game_id" valueNumeric="1"/>
+            <column name="name" value="Player2"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="5"/>
+            <column name="game_id" valueNumeric="3"/>
+            <column name="name" value="Player1"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="6"/>
+            <column name="game_id" valueNumeric="3"/>
+            <column name="name" value="Player2"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="7"/>
+            <column name="game_id" valueNumeric="4"/>
+            <column name="name" value="Player1"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="8"/>
+            <column name="game_id" valueNumeric="4"/>
+            <column name="name" value="Player2"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="9"/>
+            <column name="game_id" valueNumeric="5"/>
+            <column name="name" value="Player1"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="10"/>
+            <column name="game_id" valueNumeric="5"/>
+            <column name="name" value="Player2"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="11"/>
+            <column name="game_id" valueNumeric="6"/>
+            <column name="name" value="Player1"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="12"/>
+            <column name="game_id" valueNumeric="6"/>
+            <column name="name" value="Player2"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="19"/>
+            <column name="game_id" valueNumeric="10"/>
+            <column name="name" value="Player1"/>
+        </insert>
+        <insert tableName="player_configuration">
+            <column name="id" valueNumeric="20"/>
+            <column name="game_id" valueNumeric="10"/>
+            <column name="name" value="Player2"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-6">
+        <insert tableName="stat">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Slash"/>
+            <column name="stat_type_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="stat">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Pierce"/>
+            <column name="stat_type_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="stat">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Blunt"/>
+            <column name="stat_type_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="stat">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Parry"/>
+            <column name="stat_type_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="stat">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Block"/>
+            <column name="stat_type_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="stat">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="Heal"/>
+            <column name="stat_type_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-7">
+        <insert tableName="stat_type">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="ATTACK"/>
+        </insert>
+        <insert tableName="stat_type">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="DEFENCE"/>
+        </insert>
+        <insert tableName="stat_type">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="MAGIC"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-8">
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Left"/>
+            <column name="game_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Right"/>
+            <column name="game_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Cooperate"/>
+            <column name="game_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="Defect"/>
+            <column name="game_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="Cooperate"/>
+            <column name="game_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="8"/>
+            <column name="name" value="Defect"/>
+            <column name="game_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="9"/>
+            <column name="name" value="Three"/>
+            <column name="game_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="One"/>
+            <column name="game_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="11"/>
+            <column name="name" value="One"/>
+            <column name="game_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="12"/>
+            <column name="name" value="Two"/>
+            <column name="game_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="13"/>
+            <column name="name" value="aa"/>
+            <column name="game_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="14"/>
+            <column name="name" value="ee"/>
+            <column name="game_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="15"/>
+            <column name="name" value="eee"/>
+            <column name="game_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="16"/>
+            <column name="name" value="aa"/>
+            <column name="game_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="17"/>
+            <column name="name" value="1"/>
+            <column name="game_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="18"/>
+            <column name="name" value="2"/>
+            <column name="game_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="19"/>
+            <column name="name" value="1"/>
+            <column name="game_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="20"/>
+            <column name="name" value="2"/>
+            <column name="game_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="21"/>
+            <column name="name" value="Up"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="22"/>
+            <column name="name" value="Slash"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="23"/>
+            <column name="name" value="Up"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="24"/>
+            <column name="name" value="Slash"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="25"/>
+            <column name="name" value="Punch"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="26"/>
+            <column name="name" value="A"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="27"/>
+            <column name="name" value="B"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="28"/>
+            <column name="name" value="A"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="29"/>
+            <column name="name" value="B"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="30"/>
+            <column name="name" value="C"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="41"/>
+            <column name="name" value="Ara"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="42"/>
+            <column name="name" value="Dara"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="43"/>
+            <column name="name" value="YY"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="44"/>
+            <column name="name" value="Ara"/>
+            <column name="game_id"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="45"/>
+            <column name="name" value="A"/>
+            <column name="game_id" valueNumeric="10"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="46"/>
+            <column name="name" value="C"/>
+            <column name="game_id" valueNumeric="10"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="47"/>
+            <column name="name" value="A"/>
+            <column name="game_id" valueNumeric="10"/>
+        </insert>
+        <insert tableName="strategy">
+            <column name="id" valueNumeric="48"/>
+            <column name="name" value="B"/>
+            <column name="game_id" valueNumeric="10"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1596988782086-9">
+        <insert tableName="user">
+            <column name="id" valueNumeric="1"/>
+            <column name="first_name" value="Petar"/>
+            <column name="last_name" value="Jeremic"/>
+            <column name="country" value="Not stated"/>
+            <column name="date_of_birth" valueDate="1995-06-22"/>
+            <column name="username" value="petar"/>
+            <column name="email" value="jpetar@gmail.com"/>
+            <column name="password" value="{bcrypt}$2a$10$p/jjtpRpKQCLz.AneM0rkOzTmhlKpD8mUpqoJ2t5h4hFVa9gKexe2"/>
+            <column name="is_account_non_expired" valueNumeric="1"/>
+            <column name="is_account_non_locked" valueNumeric="1"/>
+            <column name="is_enabled" valueNumeric="1"/>
+            <column name="is_credentials_non_expired" valueNumeric="1"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" valueNumeric="2"/>
+            <column name="first_name" value="Gling"/>
+            <column name="last_name" value="Gling"/>
+            <column name="country" value="Not stated"/>
+            <column name="date_of_birth" valueDate="2020-08-08"/>
+            <column name="username" value="gling"/>
+            <column name="email" value="gling@gmail.com"/>
+            <column name="password" value="{bycrpt}"/>
+            <column name="is_account_non_expired" valueNumeric="1"/>
+            <column name="is_account_non_locked" valueNumeric="1"/>
+            <column name="is_enabled" valueNumeric="1"/>
+            <column name="is_credentials_non_expired" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

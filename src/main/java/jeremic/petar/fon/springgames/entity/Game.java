@@ -3,6 +3,7 @@ package jeremic.petar.fon.springgames.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "game")
@@ -76,5 +77,22 @@ public class Game {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+        Game game = (Game) o;
+        return getName().equals(game.getName()) &&
+                getExternalInfo().equals(game.getExternalInfo()) &&
+                getDescription().equals(game.getDescription()) &&
+                Objects.equals(getStrategies(), game.getStrategies()) &&
+                Objects.equals(getPlayers(), game.getPlayers());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getExternalInfo(), getDescription(), getStrategies(), getPlayers());
     }
 }

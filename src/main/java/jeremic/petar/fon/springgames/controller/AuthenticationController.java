@@ -1,8 +1,8 @@
 package jeremic.petar.fon.springgames.controller;
 
-import jeremic.petar.fon.springgames.communication.HttpResponse;
 import jeremic.petar.fon.springgames.dto.LoginRequestDto;
 import jeremic.petar.fon.springgames.dto.UserDto;
+import jeremic.petar.fon.springgames.exception.AuthenticationFailedException;
 import jeremic.petar.fon.springgames.security.jwt.JWTTokenProvider;
 import jeremic.petar.fon.springgames.security.user.UserPrincipal;
 import jeremic.petar.fon.springgames.service.AuthenticationService;
@@ -28,9 +28,14 @@ public class AuthenticationController {
     @PostMapping("login")
     public ResponseEntity<UserDto> login(@RequestBody LoginRequestDto loginRequestDto){
 
-        UserDto result = authenticationService.login(loginRequestDto);
-        HttpHeaders headers = getJwtHeader(authenticationService.getUserPrincipal(loginRequestDto));
-        return new ResponseEntity<>(result, headers, HttpStatus.OK);
+        try {
+            UserDto result = authenticationService.login(loginRequestDto);
+            HttpHeaders headers = getJwtHeader(authenticationService.getUserPrincipal(loginRequestDto));
+            return new ResponseEntity<>(result, headers, HttpStatus.OK);
+        }catch (Exception ex){
+            throw new AuthenticationFailedException("Login failed. Check your username and/or password.");
+        }
+
     }
 
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,5 +64,20 @@ public class Player {
     }
 
     public Player() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return getName().equals(player.getName()) &&
+                Objects.equals(getPayoffs(), player.getPayoffs()) &&
+                Objects.equals(getPlayableStrategies(), player.getPlayableStrategies());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getPayoffs(), getPlayableStrategies());
     }
 }

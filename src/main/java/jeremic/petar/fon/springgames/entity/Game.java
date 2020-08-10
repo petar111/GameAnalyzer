@@ -24,12 +24,23 @@ public class Game {
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
             @JoinColumn(name = "game_id")
-    List<Strategy> strategies;
+    private List<Strategy> strategies;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
         @JoinColumn(name = "game_id")
-    List<Player> players;
+    private List<Player> players;
 
+    @ManyToOne
+            @JoinColumn(name = "user_id")
+    private User creator;
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 
     public Long getId() {
         return id;
@@ -88,11 +99,12 @@ public class Game {
                 getExternalInfo().equals(game.getExternalInfo()) &&
                 getDescription().equals(game.getDescription()) &&
                 Objects.equals(getStrategies(), game.getStrategies()) &&
-                Objects.equals(getPlayers(), game.getPlayers());
+                Objects.equals(getPlayers(), game.getPlayers()) &&
+                Objects.equals(getCreator(), game.getCreator());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getExternalInfo(), getDescription(), getStrategies(), getPlayers());
+        return Objects.hash(getName(), getExternalInfo(), getDescription(), getStrategies(), getPlayers(), getCreator());
     }
 }

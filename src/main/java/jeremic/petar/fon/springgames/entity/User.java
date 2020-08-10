@@ -2,6 +2,8 @@ package jeremic.petar.fon.springgames.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
@@ -138,5 +140,24 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getFirstName().equals(user.getFirstName()) &&
+                getLastName().equals(user.getLastName()) &&
+                getCountry().equals(user.getCountry()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                getUsername().equals(user.getUsername()) &&
+                getPassword().equals(user.getPassword()) &&
+                Objects.equals(getDateOfBirth(), user.getDateOfBirth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName(), getCountry(), getEmail(), getUsername(), getPassword(), getDateOfBirth());
     }
 }

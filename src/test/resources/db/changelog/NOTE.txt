@@ -1,0 +1,5 @@
+Choice of having separated test database on mysql server or having embedded database(H2) in memory for testing.
+Pros for mysql server database:
+-one changeLog
+Pros for h2 database:
+-don't need to create database when project is moved

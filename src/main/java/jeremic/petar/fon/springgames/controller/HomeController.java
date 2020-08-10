@@ -2,14 +2,18 @@ package jeremic.petar.fon.springgames.controller;
 
 import jeremic.petar.fon.springgames.dto.CreatureDTO;
 import jeremic.petar.fon.springgames.dto.GameDTO;
+import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.entity.Creature;
 import jeremic.petar.fon.springgames.entity.Game;
 import jeremic.petar.fon.springgames.entity.Strategy;
+import jeremic.petar.fon.springgames.entity.User;
 import jeremic.petar.fon.springgames.mapper.CreatureMapper;
 import jeremic.petar.fon.springgames.mapper.GameMapper;
+import jeremic.petar.fon.springgames.mapper.UserMapper;
 import jeremic.petar.fon.springgames.repository.CreatureRepository;
 import jeremic.petar.fon.springgames.repository.GameRepository;
 import jeremic.petar.fon.springgames.repository.StrategyRepository;
+import jeremic.petar.fon.springgames.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,15 +35,21 @@ public class HomeController {
 
     private final StrategyRepository strategyRepository;
 
+    private final UserRepository userRepository;
+
+    private final UserMapper userMapper;
+
     @Autowired
     public HomeController(CreatureRepository creatureRepository,
                           GameRepository gameRepository, CreatureMapper creatureMapper,
-                          GameMapper gameMapper, StrategyRepository strategyRepository) {
+                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper) {
         this.creatureRepository = creatureRepository;
         this.gameRepository = gameRepository;
         this.creatureMapper = creatureMapper;
         this.gameMapper = gameMapper;
         this.strategyRepository = strategyRepository;
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
 
@@ -48,6 +58,14 @@ public class HomeController {
         Creature creature = creatureRepository.findById(id).orElse(null);
 
         CreatureDTO result = creatureMapper.toDto(creature);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/user/all")
+    public ResponseEntity<List<User>> allUsers(){
+
+            List<User> result = userRepository.findAll();
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

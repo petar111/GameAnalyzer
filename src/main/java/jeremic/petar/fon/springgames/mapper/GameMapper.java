@@ -11,13 +11,16 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {StrategyMapper.class, PlayerMapper.class})
 public interface GameMapper {
+
+
+
     GameDTO toDto(Game game);
 
     @Mapping(source = "description", target = "description")
     @Mapping(source = "externalInfo", target = "externalInfo")
     Game toEntity(GameDTO game);
 
-
+    @Mapping(target = "creatorUsername", source = "creator.username")
     GameInfoDto toGameInfoDto(Game game);
 
 

@@ -5,6 +5,15 @@ public class GameInfoDto {
     private String name;
     private String externalInfo;
     private String description;
+    private String creatorUsername;
+
+    public String getCreatorUsername() {
+        return creatorUsername;
+    }
+
+    public void setCreatorUsername(String creatorUsername) {
+        this.creatorUsername = creatorUsername;
+    }
 
     public String getExternalInfo() {
         return externalInfo;

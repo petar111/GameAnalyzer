@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="relative"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="siux (generated)" id="100 - B">
+        <createTable tableName="game_session_player">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="totalPayoff" type="INT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="game_session_id" type="BIGINT UNSIGNED" />
+            <column name="player_id" type="BIGINT UNSIGNED" />
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="game_session_player" baseColumnNames="player_id" constraintName="game_session_participant_fk" referencedTableName="player_configuration"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="game_session_player" baseColumnNames="game_session_id" constraintName="game_session_fk1" referencedTableName="game_session"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+</databaseChangeLog>

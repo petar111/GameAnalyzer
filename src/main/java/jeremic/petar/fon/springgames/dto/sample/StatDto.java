@@ -1,11 +1,4 @@
-package jeremic.petar.fon.springgames.dto;
-
-import jeremic.petar.fon.springgames.entity.StatType;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+package jeremic.petar.fon.springgames.dto.sample;
 
 public class StatDto {
 

@@ -1,4 +1,4 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.game;
 
 public class GameInfoDto {
     private Long id;

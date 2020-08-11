@@ -1,5 +1,7 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.sample;
 
+
+import jeremic.petar.fon.springgames.dto.sample.StatDto;
 
 public class PowerStatDto {
 

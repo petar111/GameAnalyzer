@@ -1,16 +1,29 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.game;
 
+
+import jeremic.petar.fon.springgames.dto.player.PlayerDTO;
+import jeremic.petar.fon.springgames.dto.StrategyDTO;
+import jeremic.petar.fon.springgames.dto.UserDto;
 
 import java.util.List;
 
 public class GameDTO {
     private Long id;
+    private UserDto creator;
     private String name;
     private String externalInfo;
     private String description;
 
     private List<StrategyDTO> strategies;
     private List<PlayerDTO> players;
+
+    public UserDto getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserDto creator) {
+        this.creator = creator;
+    }
 
     public String getExternalInfo() {
         return externalInfo;

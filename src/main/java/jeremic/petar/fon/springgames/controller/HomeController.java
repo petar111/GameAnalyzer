@@ -1,25 +1,23 @@
 package jeremic.petar.fon.springgames.controller;
 
-import jeremic.petar.fon.springgames.dto.CreatureDTO;
-import jeremic.petar.fon.springgames.dto.GameDTO;
-import jeremic.petar.fon.springgames.dto.UserDto;
-import jeremic.petar.fon.springgames.entity.Creature;
-import jeremic.petar.fon.springgames.entity.Game;
-import jeremic.petar.fon.springgames.entity.Strategy;
-import jeremic.petar.fon.springgames.entity.User;
+import jeremic.petar.fon.springgames.dto.game.GameSessionDto;
+import jeremic.petar.fon.springgames.dto.player.PlayerMatchDto;
+import jeremic.petar.fon.springgames.dto.sample.CreatureDTO;
+import jeremic.petar.fon.springgames.dto.game.GameDTO;
+import jeremic.petar.fon.springgames.entity.*;
 import jeremic.petar.fon.springgames.mapper.CreatureMapper;
 import jeremic.petar.fon.springgames.mapper.GameMapper;
+import jeremic.petar.fon.springgames.mapper.GameSessionMapper;
 import jeremic.petar.fon.springgames.mapper.UserMapper;
-import jeremic.petar.fon.springgames.repository.CreatureRepository;
-import jeremic.petar.fon.springgames.repository.GameRepository;
-import jeremic.petar.fon.springgames.repository.StrategyRepository;
-import jeremic.petar.fon.springgames.repository.UserRepository;
+import jeremic.petar.fon.springgames.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(value = "home")
@@ -39,10 +37,13 @@ public class HomeController {
 
     private final UserMapper userMapper;
 
+    private final GameSessionRepository gameSessionRepository;
+    private final GameSessionMapper gameSessionMapper;
+
     @Autowired
     public HomeController(CreatureRepository creatureRepository,
                           GameRepository gameRepository, CreatureMapper creatureMapper,
-                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper) {
+                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper, GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper) {
         this.creatureRepository = creatureRepository;
         this.gameRepository = gameRepository;
         this.creatureMapper = creatureMapper;
@@ -50,6 +51,8 @@ public class HomeController {
         this.strategyRepository = strategyRepository;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.gameSessionRepository = gameSessionRepository;
+        this.gameSessionMapper = gameSessionMapper;
     }
 
 
@@ -66,6 +69,22 @@ public class HomeController {
     public ResponseEntity<List<User>> allUsers(){
 
             List<User> result = userRepository.findAll();
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/user/game-session/{id}")
+    public ResponseEntity<GameSessionDto> findById(@PathVariable Long id){
+
+        GameSessionDto result = gameSessionMapper.toDto(gameSessionRepository.findById(id).orElse(null));
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/user/game-session/convert")
+    public ResponseEntity<GameSession> convert(@RequestBody GameSessionDto gameSessionDto){
+
+        GameSession result = gameSessionMapper.toEntity(gameSessionDto);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -105,6 +124,57 @@ public class HomeController {
         gameRepository.save(gameEntity);
 
         return new ResponseEntity<>("Game is saved", HttpStatus.OK);
+    }
+
+    private GameSessionDto prepareGameSessionDto(GameSession gameSession) {
+
+//        GameSessionDto result = gameSessionMapper.toDto(gameSession);
+//
+//        Map<String, PlayerMatchDto> players = new HashMap<>();
+//
+//        gameSession.getPlayers().forEach(playerMatch -> {
+//            PlayerMatchDto playerMatchDto = gameSessionMapper.toPlayerMatchDto(playerMatch);
+//            Map<Long, Integer> strategyPlayed = new HashMap<>();
+//            playerMatch.getStrategyPlayed().forEach(playedStrategy -> {
+//                strategyPlayed.put(playedStrategy.getId(), playedStrategy.getTimesPlayed());
+//            });
+////            playerMatchDto.setStrategyPlayed(strategyPlayed);
+//            players.put(playerMatchDto.getPlayerLabel(), playerMatchDto);
+//        });
+//
+//
+//        result.setPlayers(players);
+//        return result;
+        return null;
+
+    }
+
+    private GameSession prepareGameSessionEntity(GameSessionDto gameSession) {
+
+//        GameSession result = gameSessionMapper.toEntity(gameSession);
+//
+//        Set<PlayerMatch> players = gameSession.getPlayers().values().stream()
+//                .flatMap(playerMatchDto -> Stream.of(gameSessionMapper.toPlayerMatchEntity(playerMatchDto))).collect(Collectors.toSet());
+//
+//        players.forEach(playerMatch -> {
+//            Set<PlayedStrategy> playedStrategies = new HashSet<>();
+//            gameSession.getPlayers().values().stream()
+//                    .filter(playerMatchDto -> playerMatchDto.getPlayer().getId().equals(playerMatch.getPlayer().getId()))
+//                    .findFirst().orElseThrow(() -> new NoSuchElementException("Player not found."))
+//                    .getStrategyPlayed().forEach(
+//                    (strategyId, timesPlayed) -> playedStrategies.add(new PlayedStrategy(timesPlayed, strategyRepository.findById(strategyId).orElseThrow(() -> new NoSuchElementException("Strategy not found."))))
+//            );
+//            playerMatch.setStrategyPlayed(playedStrategies);
+//        });
+//
+//        User user = userRepository.findById(gameSession.getCreator().getId())
+//                .orElseThrow(() -> new NoSuchElementException("User not found."));
+//
+//        result.setCreator(user);
+//        result.setPlayers(players);
+
+//        return result;
+        return null;
     }
 
 

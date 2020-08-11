@@ -1,12 +1,11 @@
 package jeremic.petar.fon.springgames.mapper;
 
 
-import jeremic.petar.fon.springgames.dto.CreatureDTO;
-import jeremic.petar.fon.springgames.dto.PowerStatDto;
+import jeremic.petar.fon.springgames.dto.sample.CreatureDTO;
+import jeremic.petar.fon.springgames.dto.sample.PowerStatDto;
 import jeremic.petar.fon.springgames.entity.Creature;
 import jeremic.petar.fon.springgames.entity.PowerStat;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {StatMapper.class})
 public interface CreatureMapper {

@@ -1,11 +1,13 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.sample;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 
-public class StatTypeDto {
+
+public class CreatureShortDto {
+
+
     private Long id;
     private String name;
+    private String dietType;
 
     public Long getId() {
         return id;
@@ -21,5 +23,13 @@ public class StatTypeDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDietType() {
+        return dietType;
+    }
+
+    public void setDietType(String dietType) {
+        this.dietType = dietType;
     }
 }

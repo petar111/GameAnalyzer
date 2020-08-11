@@ -736,4 +736,55 @@
         </insert>
     </changeSet>
 
+    <changeSet author="siux (generated)" id="1597098555458-4">
+        <insert tableName="game_session">
+            <column name="id" valueNumeric="1"/>
+            <column name="number_of_rounds" valueNumeric="10"/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="game_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1597098555458-5">
+        <insert tableName="game_session_player">
+            <column name="id" valueNumeric="2"/>
+            <column name="game_session_id" valueNumeric="1"/>
+            <column name="player_id" valueNumeric="1"/>
+            <column name="player_label" value="playerRow"/>
+            <column name="total_payoff" valueNumeric="22"/>
+        </insert>
+        <insert tableName="game_session_player">
+            <column name="id" valueNumeric="3"/>
+            <column name="game_session_id" valueNumeric="1"/>
+            <column name="player_id" valueNumeric="2"/>
+            <column name="player_label" value="playerColumn"/>
+            <column name="total_payoff" valueNumeric="44"/>
+        </insert>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1597098555458-6">
+        <insert tableName="game_session_player_strategy">
+            <column name="id" valueNumeric="1"/>
+            <column name="times_played" valueNumeric="4"/>
+            <column name="game_session_player_id" valueNumeric="2"/>
+            <column name="strategy_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="game_session_player_strategy">
+            <column name="id" valueNumeric="2"/>
+            <column name="times_played" valueNumeric="5"/>
+            <column name="game_session_player_id" valueNumeric="2"/>
+            <column name="strategy_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="game_session_player_strategy">
+            <column name="id" valueNumeric="3"/>
+            <column name="times_played" valueNumeric="5"/>
+            <column name="game_session_player_id" valueNumeric="3"/>
+            <column name="strategy_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="game_session_player_strategy">
+            <column name="id" valueNumeric="4"/>
+            <column name="times_played" valueNumeric="4"/>
+            <column name="game_session_player_id" valueNumeric="3"/>
+            <column name="strategy_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

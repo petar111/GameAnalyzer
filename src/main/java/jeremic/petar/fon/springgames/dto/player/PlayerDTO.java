@@ -1,5 +1,7 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.player;
 
+import jeremic.petar.fon.springgames.dto.PayoffDTO;
+import jeremic.petar.fon.springgames.dto.StrategyDTO;
 import jeremic.petar.fon.springgames.entity.Payoff;
 
 import java.util.List;

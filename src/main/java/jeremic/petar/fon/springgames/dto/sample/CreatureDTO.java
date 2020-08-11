@@ -1,4 +1,4 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.sample;
 
 
 import java.util.List;

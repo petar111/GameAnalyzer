@@ -113,5 +113,11 @@ public class GameServiceImpl implements GameService {
         return gameSessionMapper.toGameSessionInfoDtoList(gameSessionList);
     }
 
+    @Override
+    public GameSessionDto findGameSessionById(Long id) {
+        return gameSessionMapper.toDto(gameSessionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Game session not found.")));
+    }
+
 
 }

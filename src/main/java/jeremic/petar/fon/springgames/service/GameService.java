@@ -14,7 +14,6 @@ public interface GameService {
 
     List<GameInfoDto> findAllInfo();
 
-
     GameDTO save(GameDTO game);
 
     GameDTO findByName(String name);
@@ -22,4 +21,6 @@ public interface GameService {
     GameSessionDto saveGameSession(GameSessionDto gameSession);
 
     List<GameSessionInfoDto> findAllGameSessionInfoByUsername(String username);
+
+    GameSessionDto findGameSessionById(Long id);
 }

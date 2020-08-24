@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="relative"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="siux (generated)" id="1598283942097-10">
+        <createTable tableName="rank">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="experience_min" type="INT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="experience_max" type="INT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="verified_games_max" type="INT UNSIGNED"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283942097-11">
+        <addColumn tableName="user">
+            <column defaultValueComputed="NULL" name="experience" type="INT"/>
+        </addColumn>
+        <addColumn tableName="user">
+            <column defaultValueComputed="NULL" name="rank_id" type="BIGINT UNSIGNED"/>
+        </addColumn>
+        <addColumn tableName="user">
+            <column defaultValueComputed="NULL" name="number_of_verified_games" type="INT UNSIGNED"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283942097-15">
+        <createTable tableName="user_following">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="user_id" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="user_following_id" type="BIGINT UNSIGNED"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283942097-16">
+        <createTable tableName="verification_status">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283942097-4">
+        <createTable tableName="game_score">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="total_payoff" type="DECIMAL(10)"/>
+            <column defaultValueComputed="NULL" name="number_of_rounds" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="game_id" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="user_id" type="BIGINT UNSIGNED"/>
+            <column defaultValueComputed="NULL" name="date_created" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283942097-233">
+        <addColumn tableName="user">
+            <column defaultValueComputed="NULL" name="verification_status_id" type="BIGINT UNSIGNED"/>
+        </addColumn>
+    </changeSet>
+
+
+
+
+    <changeSet author="siux (generated)" id="1598283942097-19">
+        <createIndex indexName="game_id" tableName="game_score">
+            <column defaultValueComputed="NULL" name="game_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-32">
+        <createIndex indexName="rank_id" tableName="user">
+            <column defaultValueComputed="NULL" name="rank_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-35">
+        <createIndex indexName="user_following_id" tableName="user_following">
+            <column defaultValueComputed="NULL" name="user_following_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-36">
+        <createIndex indexName="user_id" tableName="game_score">
+            <column defaultValueComputed="NULL" name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-37">
+        <createIndex indexName="user_id" tableName="user_following">
+            <column defaultValueComputed="NULL" name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-38">
+        <createIndex indexName="verification_status_id" tableName="game">
+            <column defaultValueComputed="NULL" name="verification_status_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283942097-41">
+        <addForeignKeyConstraint baseColumnNames="verification_status_id" baseTableName="game" constraintName="game_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="verification_status" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-42">
+        <addForeignKeyConstraint baseColumnNames="game_id" baseTableName="game_score" constraintName="game_score_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="game" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-43">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="game_score" constraintName="game_score_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-58">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_following" constraintName="user_following_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-59">
+        <addForeignKeyConstraint baseColumnNames="user_following_id" baseTableName="user_following" constraintName="user_following_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="siux (generated)" id="1598283942097-60">
+        <addForeignKeyConstraint baseColumnNames="rank_id" baseTableName="user" constraintName="user_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="rank" validate="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -5,6 +5,7 @@ import jeremic.petar.fon.springgames.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GameSessionRepository extends JpaRepository<GameSession, Long> {
 
@@ -12,4 +13,6 @@ public interface GameSessionRepository extends JpaRepository<GameSession, Long> 
     <S extends GameSession> S save(S s);
 
     List<GameSession> findAllByCreator(User creator);
+
+    Optional<GameSession> findById(Long id);
 }

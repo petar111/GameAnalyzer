@@ -34,6 +34,18 @@ public class Game {
             @JoinColumn(name = "user_id")
     private User creator;
 
+    @ManyToOne
+    @JoinColumn(name = "verification_status_id")
+    private VerificationStatus verificationStatus;
+
+    public VerificationStatus getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(VerificationStatus verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
+
     public User getCreator() {
         return creator;
     }

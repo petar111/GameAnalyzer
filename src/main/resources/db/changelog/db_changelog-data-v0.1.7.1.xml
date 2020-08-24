@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="relative"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="siux (generated)" id="1598283862771-10a">
+        <insert tableName="rank">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Private"/>
+            <column name="experience_min" valueNumeric="0"/>
+            <column name="experience_max" valueNumeric="30"/>
+            <column name="verified_games_max" valueNumeric="0"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Corporal"/>
+            <column name="experience_min" valueNumeric="31"/>
+            <column name="experience_max" valueNumeric="100"/>
+            <column name="verified_games_max" valueNumeric="0"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Sergeant"/>
+            <column name="experience_min" valueNumeric="101"/>
+            <column name="experience_max" valueNumeric="200"/>
+            <column name="verified_games_max" valueNumeric="0"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Lieutenant"/>
+            <column name="experience_min" valueNumeric="201"/>
+            <column name="experience_max" valueNumeric="500"/>
+            <column name="verified_games_max" valueNumeric="0"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Captain"/>
+            <column name="experience_min" valueNumeric="501"/>
+            <column name="experience_max" valueNumeric="1000"/>
+            <column name="verified_games_max" valueNumeric="0"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="Captain Analyzer"/>
+            <column name="experience_min" valueNumeric="1001"/>
+            <column name="experience_max" valueNumeric="2000"/>
+            <column name="verified_games_max" valueNumeric="1"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="7"/>
+            <column name="name" value="Major"/>
+            <column name="experience_min" valueNumeric="2001"/>
+            <column name="experience_max" valueNumeric="4000"/>
+            <column name="verified_games_max" valueNumeric="2"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="8"/>
+            <column name="name" value="Colonel Lieutenant"/>
+            <column name="experience_min" valueNumeric="4001"/>
+            <column name="experience_max" valueNumeric="6000"/>
+            <column name="verified_games_max" valueNumeric="3"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="9"/>
+            <column name="name" value="Colonel"/>
+            <column name="experience_min" valueNumeric="6001"/>
+            <column name="experience_max" valueNumeric="10000"/>
+            <column name="verified_games_max" valueNumeric="3"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="10"/>
+            <column name="name" value="General"/>
+            <column name="experience_min" valueNumeric="10001"/>
+            <column name="experience_max" valueNumeric="20000"/>
+            <column name="verified_games_max" valueNumeric="10"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="11"/>
+            <column name="name" value="General Analyzer"/>
+            <column name="experience_min" valueNumeric="20001"/>
+            <column name="experience_max" valueNumeric="50000"/>
+            <column name="verified_games_max" valueNumeric="50"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="12"/>
+            <column name="name" value="Marshal"/>
+            <column name="experience_min" valueNumeric="50001"/>
+            <column name="experience_max" valueNumeric="100000"/>
+            <column name="verified_games_max" valueNumeric="100"/>
+        </insert>
+        <insert tableName="rank">
+            <column name="id" valueNumeric="13"/>
+            <column name="name" value="Supreme Analyzer"/>
+            <column name="experience_min" valueNumeric="100001"/>
+            <column name="experience_max" valueNumeric="200000"/>
+            <column name="verified_games_max" valueNumeric="1000"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="siux (generated)" id="1598283862771-10b">
+        <insert tableName="verification_status">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="NOT_VERIFIED"/>
+        </insert>
+        <insert tableName="verification_status">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="PENDING"/>
+        </insert>
+        <insert tableName="verification_status">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="REJECTED"/>
+        </insert>
+        <insert tableName="verification_status">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="VERIFIED"/>
+        </insert>
+        <insert tableName="verification_status">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="WILDCARD_VERIFIED"/>
+        </insert>
+    </changeSet>
+
+
+
+</databaseChangeLog>

@@ -1,10 +1,14 @@
 package jeremic.petar.fon.springgames.dto.game;
 
 
+import jeremic.petar.fon.springgames.dto.VerificationStatusDto;
 import jeremic.petar.fon.springgames.dto.player.PlayerDTO;
 import jeremic.petar.fon.springgames.dto.StrategyDTO;
 import jeremic.petar.fon.springgames.dto.UserDto;
+import jeremic.petar.fon.springgames.entity.VerificationStatus;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.List;
 
 public class GameDTO {
@@ -13,9 +17,18 @@ public class GameDTO {
     private String name;
     private String externalInfo;
     private String description;
+    private VerificationStatusDto verificationStatus;
 
     private List<StrategyDTO> strategies;
     private List<PlayerDTO> players;
+
+    public VerificationStatusDto getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(VerificationStatusDto verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
 
     public UserDto getCreator() {
         return creator;

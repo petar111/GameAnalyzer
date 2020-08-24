@@ -61,9 +61,17 @@ public class GameController {
     }
 
     @GetMapping(path = "game-session/get-by-creator")
-    public ResponseEntity<List<GameSessionInfoDto>> insertGame(@RequestParam String username){
+    public ResponseEntity<List<GameSessionInfoDto>> getGameSessionByCreator(@RequestParam String username){
 
         List<GameSessionInfoDto> result = gameService.findAllGameSessionInfoByUsername(username);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "game-session/{id}")
+    public ResponseEntity<GameSessionDto> getGameSessionById(@PathVariable Long id){
+
+        GameSessionDto result = gameService.findGameSessionById(id);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

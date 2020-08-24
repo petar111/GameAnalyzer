@@ -1,11 +1,22 @@
 package jeremic.petar.fon.springgames.dto.game;
 
+import jeremic.petar.fon.springgames.dto.VerificationStatusDto;
+
 public class GameInfoDto {
     private Long id;
     private String name;
     private String externalInfo;
     private String description;
     private String creatorUsername;
+    private VerificationStatusDto verificationStatus;
+
+    public VerificationStatusDto getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(VerificationStatusDto verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
 
     public String getCreatorUsername() {
         return creatorUsername;

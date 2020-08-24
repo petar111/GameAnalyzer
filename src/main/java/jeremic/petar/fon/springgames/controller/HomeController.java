@@ -1,7 +1,7 @@
 package jeremic.petar.fon.springgames.controller;
 
+import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.dto.game.GameSessionDto;
-import jeremic.petar.fon.springgames.dto.player.PlayerMatchDto;
 import jeremic.petar.fon.springgames.dto.sample.CreatureDTO;
 import jeremic.petar.fon.springgames.dto.game.GameDTO;
 import jeremic.petar.fon.springgames.entity.*;
@@ -16,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(value = "home")
@@ -40,10 +38,14 @@ public class HomeController {
     private final GameSessionRepository gameSessionRepository;
     private final GameSessionMapper gameSessionMapper;
 
+    private final GameScoreRepository gameScoreRepository;
+    private final RankRepository rankRepository;
+    private final VerificationStatusRepository verificationStatusRepository;
+
     @Autowired
     public HomeController(CreatureRepository creatureRepository,
                           GameRepository gameRepository, CreatureMapper creatureMapper,
-                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper, GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper) {
+                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper, GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper, GameScoreRepository gameScoreRepository, RankRepository rankRepository, VerificationStatusRepository verificationStatusRepository) {
         this.creatureRepository = creatureRepository;
         this.gameRepository = gameRepository;
         this.creatureMapper = creatureMapper;
@@ -53,6 +55,15 @@ public class HomeController {
         this.userMapper = userMapper;
         this.gameSessionRepository = gameSessionRepository;
         this.gameSessionMapper = gameSessionMapper;
+        this.gameScoreRepository = gameScoreRepository;
+        this.rankRepository = rankRepository;
+        this.verificationStatusRepository = verificationStatusRepository;
+    }
+
+    @GetMapping("/test/{id}")
+    public UserDto test(@PathVariable Long id){
+
+        return userMapper.toDto(userRepository.findById(id).get());
     }
 
 

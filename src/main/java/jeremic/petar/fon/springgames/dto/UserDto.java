@@ -1,9 +1,8 @@
 package jeremic.petar.fon.springgames.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jeremic.petar.fon.springgames.entity.Rank;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +20,33 @@ public class UserDto {
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
+    private int experience;
+    private int numberOfVerifiedGames;
+    private RankDto rank;
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getNumberOfVerifiedGames() {
+        return numberOfVerifiedGames;
+    }
+
+    public void setNumberOfVerifiedGames(int numberOfVerifiedGames) {
+        this.numberOfVerifiedGames = numberOfVerifiedGames;
+    }
+
+    public RankDto getRank() {
+        return rank;
+    }
+
+    public void setRank(RankDto rank) {
+        this.rank = rank;
+    }
 
     public Long getId() {
         return id;

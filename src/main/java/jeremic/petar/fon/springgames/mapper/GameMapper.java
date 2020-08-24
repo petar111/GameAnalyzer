@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {StrategyMapper.class, PlayerMapper.class, UserMapper.class})
+@Mapper(componentModel = "spring", uses = {StrategyMapper.class, PlayerMapper.class, UserMapper.class, VerificationStatusMapper.class})
 public interface GameMapper {
 
 

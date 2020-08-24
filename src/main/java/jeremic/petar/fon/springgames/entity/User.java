@@ -46,6 +46,43 @@ public class User {
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
+    @Column(name = "experience")
+    private int experience;
+
+    @Column(name = "number_of_verified_games")
+    private int numberOfVerifiedGames;
+
+    @ManyToOne
+    @JoinColumn(name = "rank_id")
+    private Rank rank;
+
+
+
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getNumberOfVerifiedGames() {
+        return numberOfVerifiedGames;
+    }
+
+    public void setNumberOfVerifiedGames(int numberOfVerifiedGames) {
+        this.numberOfVerifiedGames = numberOfVerifiedGames;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
     public Long getId() {
         return id;
     }

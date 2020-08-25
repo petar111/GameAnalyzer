@@ -189,7 +189,6 @@ public class User {
                 getCountry().equals(user.getCountry()) &&
                 Objects.equals(getEmail(), user.getEmail()) &&
                 getUsername().equals(user.getUsername()) &&
-                getPassword().equals(user.getPassword()) &&
                 Objects.equals(getDateOfBirth(), user.getDateOfBirth());
     }
 

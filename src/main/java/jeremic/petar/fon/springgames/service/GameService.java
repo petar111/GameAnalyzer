@@ -1,9 +1,7 @@
 package jeremic.petar.fon.springgames.service;
 
-import jeremic.petar.fon.springgames.dto.game.GameDTO;
-import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
-import jeremic.petar.fon.springgames.dto.game.GameSessionDto;
-import jeremic.petar.fon.springgames.dto.game.GameSessionInfoDto;
+import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.game.*;
 
 import java.util.List;
 
@@ -23,4 +21,8 @@ public interface GameService {
     List<GameSessionInfoDto> findAllGameSessionInfoByUsername(String username);
 
     GameSessionDto findGameSessionById(Long id);
+
+    GameAdviceDto makeGameAdviceById(Long id);
+
+    ExperienceUpdateDto saveGameScore(GameScoreDto gameScoreDto);
 }

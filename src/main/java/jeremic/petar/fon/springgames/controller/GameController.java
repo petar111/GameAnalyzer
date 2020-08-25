@@ -1,10 +1,8 @@
 package jeremic.petar.fon.springgames.controller;
 
 
-import jeremic.petar.fon.springgames.dto.game.GameDTO;
-import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
-import jeremic.petar.fon.springgames.dto.game.GameSessionDto;
-import jeremic.petar.fon.springgames.dto.game.GameSessionInfoDto;
+import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.game.*;
 import jeremic.petar.fon.springgames.entity.GameSession;
 import jeremic.petar.fon.springgames.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +73,22 @@ public class GameController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping(path = "{id}/advice")
+    public GameAdviceDto getGameAdviceById(@PathVariable Long id){
+
+        return gameService.makeGameAdviceById(id);
+    }
+
+    @PostMapping(path = "score/submit")
+    public ExperienceUpdateDto saveGameSession(@RequestBody GameScoreDto gameScoreDto){
+
+        ExperienceUpdateDto result = gameService.saveGameScore(gameScoreDto);
+
+        return result;
+    }
+
+
 
 
 }

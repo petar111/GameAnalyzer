@@ -1,14 +1,11 @@
 package jeremic.petar.fon.springgames.controller;
 
-import jeremic.petar.fon.springgames.dto.UserDto;
+import jeremic.petar.fon.springgames.dto.game.GameScoreDto;
 import jeremic.petar.fon.springgames.dto.game.GameSessionDto;
 import jeremic.petar.fon.springgames.dto.sample.CreatureDTO;
 import jeremic.petar.fon.springgames.dto.game.GameDTO;
 import jeremic.petar.fon.springgames.entity.*;
-import jeremic.petar.fon.springgames.mapper.CreatureMapper;
-import jeremic.petar.fon.springgames.mapper.GameMapper;
-import jeremic.petar.fon.springgames.mapper.GameSessionMapper;
-import jeremic.petar.fon.springgames.mapper.UserMapper;
+import jeremic.petar.fon.springgames.mapper.*;
 import jeremic.petar.fon.springgames.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +36,14 @@ public class HomeController {
     private final GameSessionMapper gameSessionMapper;
 
     private final GameScoreRepository gameScoreRepository;
+    private final GameScoreMapper gameScoreMapper;
     private final RankRepository rankRepository;
     private final VerificationStatusRepository verificationStatusRepository;
 
     @Autowired
     public HomeController(CreatureRepository creatureRepository,
                           GameRepository gameRepository, CreatureMapper creatureMapper,
-                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper, GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper, GameScoreRepository gameScoreRepository, RankRepository rankRepository, VerificationStatusRepository verificationStatusRepository) {
+                          GameMapper gameMapper, StrategyRepository strategyRepository, UserRepository userRepository, UserMapper userMapper, GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper, GameScoreRepository gameScoreRepository, GameScoreMapper gameScoreMapper, RankRepository rankRepository, VerificationStatusRepository verificationStatusRepository) {
         this.creatureRepository = creatureRepository;
         this.gameRepository = gameRepository;
         this.creatureMapper = creatureMapper;
@@ -56,14 +54,15 @@ public class HomeController {
         this.gameSessionRepository = gameSessionRepository;
         this.gameSessionMapper = gameSessionMapper;
         this.gameScoreRepository = gameScoreRepository;
+        this.gameScoreMapper = gameScoreMapper;
         this.rankRepository = rankRepository;
         this.verificationStatusRepository = verificationStatusRepository;
     }
 
     @GetMapping("/test/{id}")
-    public UserDto test(@PathVariable Long id){
+    public GameScoreDto test(@PathVariable Long id){
 
-        return userMapper.toDto(userRepository.findById(id).get());
+        return gameScoreMapper.toDto(gameScoreRepository.findById(id).get());
     }
 
 

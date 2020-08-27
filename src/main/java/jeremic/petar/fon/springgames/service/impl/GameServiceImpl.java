@@ -6,6 +6,7 @@ import jeremic.petar.fon.springgames.entity.*;
 import jeremic.petar.fon.springgames.exception.GameNotFoundException;
 import jeremic.petar.fon.springgames.exception.PayoffNotFoundException;
 import jeremic.petar.fon.springgames.exception.PlayerNotFoundException;
+import jeremic.petar.fon.springgames.exception.user.UserNotFoundException;
 import jeremic.petar.fon.springgames.mapper.GameMapper;
 import jeremic.petar.fon.springgames.mapper.GameScoreMapper;
 import jeremic.petar.fon.springgames.mapper.GameSessionMapper;
@@ -145,6 +146,13 @@ public class GameServiceImpl implements GameService {
         }
         result.setMessage(responseMessage.toString());
         return result;
+    }
+
+    @Override
+    public List<GameInfoDto> findGamesByCreatorId(Long id) {
+        return gameMapper.toListGameInfoDto(gameRepository.findAllByCreator(userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("User by id not found.")
+        )));
     }
 
     private int calculateExperience(GameScore savedGameScore) {

@@ -88,6 +88,14 @@ public class GameController {
         return result;
     }
 
+    @GetMapping(path = "{id}/games")
+    public List<GameInfoDto> findGamesByCreatorId(@PathVariable Long id){
+
+        List<GameInfoDto> result = gameService.findGamesByCreatorId(id);
+
+        return result;
+    }
+
 
 
 

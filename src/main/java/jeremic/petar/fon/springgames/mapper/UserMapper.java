@@ -1,5 +1,6 @@
 package jeremic.petar.fon.springgames.mapper;
 
+import jeremic.petar.fon.springgames.dto.RegisterRequestDto;
 import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.entity.User;
 import org.mapstruct.Mapper;
@@ -13,8 +14,12 @@ public interface UserMapper {
     @Mapping(target = "password", expression = "java(null)")
     UserDto toDto(User user);
 
+
+
     List<UserDto> toListDto(List<User> users);
 
     User toEntity(UserDto userDto);
+
+    User toEntity(RegisterRequestDto registerRequestDto);
 
 }

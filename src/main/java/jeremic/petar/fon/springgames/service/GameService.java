@@ -25,4 +25,6 @@ public interface GameService {
     GameAdviceDto makeGameAdviceById(Long id);
 
     ExperienceUpdateDto saveGameScore(GameScoreDto gameScoreDto);
+
+    List<GameInfoDto> findGamesByCreatorId(Long id);
 }

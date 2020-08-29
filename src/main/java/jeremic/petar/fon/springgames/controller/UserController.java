@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/user")
@@ -22,13 +24,17 @@ public class UserController {
     }
 
     @GetMapping("{id}/following")
-    public List<UserDto> findAllUsersFollowingById(@PathVariable Long id){
-        return userService.findAllUsersFollowingById(id);
+    public List<String> findAllUsersFollowingById(@PathVariable Long id){
+        return userService.findAllUsersFollowingById(id).stream().flatMap(
+                userDto -> Stream.of(userDto.getUsername())
+        ).collect(Collectors.toList());
     }
 
     @GetMapping("{id}/followers")
-    public List<UserDto> findAllUsersFollowersById(@PathVariable Long id){
-        return userService.findAllUsersFollowersById(id);
+    public List<String> findAllUsersFollowersById(@PathVariable Long id){
+        return userService.findAllUsersFollowersById(id).stream().flatMap(
+                userDto -> Stream.of(userDto.getUsername())
+        ).collect(Collectors.toList());
     }
 
     @GetMapping("{id}/following/count")

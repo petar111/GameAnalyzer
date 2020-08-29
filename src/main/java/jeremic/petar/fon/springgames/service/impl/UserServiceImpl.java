@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("User with id not found.") //TODO: insert constant
         );
-        return followingFollowerRepository.findAllByFollowed(user).size();
+        return followingFollowerRepository.findAllByFollower(user).size();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("User with id not found.") //TODO: insert constant
         );
-        return followingFollowerRepository.findAllByFollower(user).size();
+        return followingFollowerRepository.findAllByFollowed(user).size();
     }
 
     @Override

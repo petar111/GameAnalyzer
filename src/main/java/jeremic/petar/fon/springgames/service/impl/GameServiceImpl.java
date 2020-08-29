@@ -1,15 +1,18 @@
 package jeremic.petar.fon.springgames.service.impl;
 
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.VerificationRequest;
 import jeremic.petar.fon.springgames.dto.game.*;
 import jeremic.petar.fon.springgames.entity.*;
 import jeremic.petar.fon.springgames.exception.GameNotFoundException;
 import jeremic.petar.fon.springgames.exception.PayoffNotFoundException;
 import jeremic.petar.fon.springgames.exception.PlayerNotFoundException;
+import jeremic.petar.fon.springgames.exception.VerificationStatusNotFoundException;
 import jeremic.petar.fon.springgames.exception.user.UserNotFoundException;
 import jeremic.petar.fon.springgames.mapper.GameMapper;
 import jeremic.petar.fon.springgames.mapper.GameScoreMapper;
 import jeremic.petar.fon.springgames.mapper.GameSessionMapper;
+import jeremic.petar.fon.springgames.mapper.UserMapper;
 import jeremic.petar.fon.springgames.repository.*;
 import jeremic.petar.fon.springgames.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +31,10 @@ public class GameServiceImpl implements GameService {
     private final GameSessionMapper gameSessionMapper;
     private final GameSessionRepository gameSessionRepository;
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
     private final GameScoreRepository gameScoreRepository;
     private final GameScoreMapper gameScoreMapper;
+    private final VerificationStatusRepository verificationStatusRepository;
 
     @Autowired
     public GameServiceImpl(StrategyRepository strategyRepository,
@@ -37,15 +42,17 @@ public class GameServiceImpl implements GameService {
                            GameMapper gameMapper,
                            GameSessionMapper gameSessionMapper,
                            GameSessionRepository gameSessionRepository,
-                           UserRepository userRepository, GameScoreRepository gameScoreRepository, GameScoreMapper gameScoreMapper) {
+                           UserRepository userRepository, UserMapper userMapper, GameScoreRepository gameScoreRepository, GameScoreMapper gameScoreMapper, VerificationStatusRepository verificationStatusRepository) {
         this.strategyRepository = strategyRepository;
         this.gameRepository = gameRepository;
         this.gameMapper = gameMapper;
         this.gameSessionMapper = gameSessionMapper;
         this.gameSessionRepository = gameSessionRepository;
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
         this.gameScoreRepository = gameScoreRepository;
         this.gameScoreMapper = gameScoreMapper;
+        this.verificationStatusRepository = verificationStatusRepository;
     }
 
     @Override
@@ -80,7 +87,10 @@ public class GameServiceImpl implements GameService {
 
         gameEntity.setCreator(userRepository.findById(gameEntity.getCreator().getId())
                 .orElseThrow(() -> new RuntimeException("User not found.")));
-
+        gameEntity.setVerificationStatus(verificationStatusRepository.findByName("NOT_VERIFIED")
+                .orElseThrow(
+                        () -> new VerificationStatusNotFoundException("Verification status with name not found.")
+                ));
 
         Game savedGame = gameRepository.save(gameEntity);
 
@@ -149,10 +159,43 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<GameInfoDto> findGamesByCreatorId(Long id) {
-        return gameMapper.toListGameInfoDto(gameRepository.findAllByCreator(userRepository.findById(id).orElseThrow(
-                () -> new UserNotFoundException("User by id not found.")
-        )));
+    public GameVerificationResponseDto attemptVerification(VerificationRequest verificationRequest) {
+        Game game = gameRepository.findById(verificationRequest.getGameId()).orElseThrow(
+                () -> new GameNotFoundException("Game with id not found.")
+        );
+        User user = userRepository.findById(verificationRequest.getUserId()).orElseThrow(
+                () -> new UserNotFoundException("User with id not found")
+        );
+        VerificationStatus statusRejected = verificationStatusRepository.findByName("REJECTED")
+                .orElseThrow(
+                        () -> new VerificationStatusNotFoundException("Verification status with name not found.")
+                );
+        VerificationStatus statusVerified = verificationStatusRepository.findByName("VERIFIED")
+                .orElseThrow(
+                        () -> new VerificationStatusNotFoundException("Verification status with name not found.")
+                );
+
+        GameVerificationResponseDto result = new GameVerificationResponseDto();
+
+        if(user.getNumberOfVerifiedGames() >= user.getRank().getVerifiedGamesMax()){
+          game.setVerificationStatus(statusRejected);
+          result.setSignal("GAME_REJECTED");
+          result.setMessage("Game has been rejected.");
+
+        }else{
+            game.setVerificationStatus(statusVerified);
+            user.setNumberOfVerifiedGames(user.getNumberOfVerifiedGames() + 1);
+            result.setSignal("GAME_VERIFIED");
+            result.setMessage("Game has been verified.");
+        }
+        Game savedGame = gameRepository.save(game);
+        User savedUser = userRepository.save(user);
+
+
+        result.setGame(gameMapper.toGameInfoDto(savedGame));
+        result.setUser(userMapper.toDto(savedUser));
+
+        return result;
     }
 
     private int calculateExperience(GameScore savedGameScore) {

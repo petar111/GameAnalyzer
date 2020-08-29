@@ -1,6 +1,7 @@
 package jeremic.petar.fon.springgames.service;
 
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.VerificationRequest;
 import jeremic.petar.fon.springgames.dto.game.*;
 
 import java.util.List;
@@ -26,5 +27,5 @@ public interface GameService {
 
     ExperienceUpdateDto saveGameScore(GameScoreDto gameScoreDto);
 
-    List<GameInfoDto> findGamesByCreatorId(Long id);
+    GameVerificationResponseDto attemptVerification(VerificationRequest verificationRequest);
 }

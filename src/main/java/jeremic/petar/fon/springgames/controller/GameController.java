@@ -2,6 +2,9 @@ package jeremic.petar.fon.springgames.controller;
 
 
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.HttpResponseBody;
+import jeremic.petar.fon.springgames.dto.UserDto;
+import jeremic.petar.fon.springgames.dto.VerificationRequest;
 import jeremic.petar.fon.springgames.dto.game.*;
 import jeremic.petar.fon.springgames.entity.GameSession;
 import jeremic.petar.fon.springgames.service.GameService;
@@ -88,10 +91,10 @@ public class GameController {
         return result;
     }
 
-    @GetMapping(path = "{id}/games")
-    public List<GameInfoDto> findGamesByCreatorId(@PathVariable Long id){
+    @PostMapping(path = "request-verification")
+    public GameVerificationResponseDto findGamesByCreatorId(@RequestBody VerificationRequest verificationRequest){
 
-        List<GameInfoDto> result = gameService.findGamesByCreatorId(id);
+        GameVerificationResponseDto result = gameService.attemptVerification(verificationRequest);
 
         return result;
     }

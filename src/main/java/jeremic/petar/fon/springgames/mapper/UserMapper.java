@@ -1,6 +1,6 @@
 package jeremic.petar.fon.springgames.mapper;
 
-import jeremic.petar.fon.springgames.dto.RegisterRequestDto;
+import jeremic.petar.fon.springgames.dto.auth.RegisterRequestDto;
 import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.entity.User;
 import org.mapstruct.Mapper;

@@ -1,4 +1,4 @@
-package jeremic.petar.fon.springgames.dto;
+package jeremic.petar.fon.springgames.dto.auth;
 
 public class LoginRequestDto {
     private String username;

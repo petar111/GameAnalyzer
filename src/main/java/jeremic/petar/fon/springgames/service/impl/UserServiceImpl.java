@@ -2,12 +2,15 @@ package jeremic.petar.fon.springgames.service.impl;
 
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
 import jeremic.petar.fon.springgames.dto.UserDto;
+import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
 import jeremic.petar.fon.springgames.entity.Rank;
 import jeremic.petar.fon.springgames.entity.User;
 import jeremic.petar.fon.springgames.exception.user.RankNotFoundException;
 import jeremic.petar.fon.springgames.exception.user.UserNotFoundException;
+import jeremic.petar.fon.springgames.mapper.GameMapper;
 import jeremic.petar.fon.springgames.mapper.UserMapper;
 import jeremic.petar.fon.springgames.repository.FollowingFollowerRepository;
+import jeremic.petar.fon.springgames.repository.GameRepository;
 import jeremic.petar.fon.springgames.repository.RankRepository;
 import jeremic.petar.fon.springgames.repository.UserRepository;
 import jeremic.petar.fon.springgames.service.UserService;
@@ -28,16 +31,20 @@ public class UserServiceImpl implements UserService {
     private final RankRepository rankRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final GameRepository gameRepository;
+    private final GameMapper gameMapper;
 
     @Autowired
     public UserServiceImpl(
             UserRepository userRepository,
-            FollowingFollowerRepository followingFollowerRepository, RankRepository rankRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+            FollowingFollowerRepository followingFollowerRepository, RankRepository rankRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, GameRepository gameRepository, GameMapper gameMapper) {
         this.userRepository = userRepository;
         this.followingFollowerRepository = followingFollowerRepository;
         this.rankRepository = rankRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.gameRepository = gameRepository;
+        this.gameMapper = gameMapper;
     }
 
 
@@ -132,6 +139,13 @@ public class UserServiceImpl implements UserService {
         experienceUpdateDtoResponse.setMessage(experienceUpdateMessage + " " + promotionMessage);
 
         return experienceUpdateDtoResponse;
+    }
+
+    @Override
+    public List<GameInfoDto> findGamesById(Long id) {
+        return gameMapper.toListGameInfoDto(gameRepository.findAllByCreator(userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("User by id not found.")
+        )));
     }
 
     private Rank resolveRankByUser(User user) {

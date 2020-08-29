@@ -3,6 +3,7 @@ package jeremic.petar.fon.springgames.controller;
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
 import jeremic.petar.fon.springgames.dto.HttpResponseBody;
 import jeremic.petar.fon.springgames.dto.UserDto;
+import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
 import jeremic.petar.fon.springgames.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,14 @@ public class UserController {
     @PostMapping("update/experience")
     public ExperienceUpdateDto updateUserExperience(@RequestBody ExperienceUpdateDto experienceUpdateDto){
         return userService.saveExperience(experienceUpdateDto);
+    }
+
+    @GetMapping(path = "{id}/games")
+    public List<GameInfoDto> findGamesByCreatorId(@PathVariable Long id){
+
+        List<GameInfoDto> result = userService.findGamesById(id);
+
+        return result;
     }
 
 }

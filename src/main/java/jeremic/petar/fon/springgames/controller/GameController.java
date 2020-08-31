@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -95,6 +96,14 @@ public class GameController {
     public GameVerificationResponseDto findGamesByCreatorId(@RequestBody VerificationRequest verificationRequest){
 
         GameVerificationResponseDto result = gameService.attemptVerification(verificationRequest);
+
+        return result;
+    }
+
+    @GetMapping(path = "scores-today")
+    public List<GameScoreDto> findGameScoresCreatedToday(){
+
+        List<GameScoreDto> result = gameService.findGameScoresByDateCreated(new Date());
 
         return result;
     }

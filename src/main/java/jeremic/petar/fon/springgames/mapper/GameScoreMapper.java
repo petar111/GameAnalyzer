@@ -6,10 +6,14 @@ import jeremic.petar.fon.springgames.entity.Game;
 import jeremic.petar.fon.springgames.entity.GameScore;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {GameMapper.class, UserMapper.class})
 public interface GameScoreMapper {
     GameScore toEntity(GameScoreDto gameScoreDto);
 
     GameScoreDto toDto(GameScore gameScore);
+
+    List<GameScoreDto> toDtoList(List<GameScore> gameScores);
 
 }

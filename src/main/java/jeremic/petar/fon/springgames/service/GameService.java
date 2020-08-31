@@ -4,6 +4,7 @@ import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
 import jeremic.petar.fon.springgames.dto.VerificationRequest;
 import jeremic.petar.fon.springgames.dto.game.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface GameService {
@@ -28,4 +29,6 @@ public interface GameService {
     ExperienceUpdateDto saveGameScore(GameScoreDto gameScoreDto);
 
     GameVerificationResponseDto attemptVerification(VerificationRequest verificationRequest);
+
+    List<GameScoreDto> findGameScoresByDateCreated(Date date);
 }

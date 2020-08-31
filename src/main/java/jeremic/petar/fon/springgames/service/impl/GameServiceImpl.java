@@ -145,7 +145,10 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public ExperienceUpdateDto saveGameScore(GameScoreDto gameScoreDto) {
-        GameScore savedGameScore = gameScoreRepository.save(gameScoreMapper.toEntity(gameScoreDto));
+        GameScore gameScore = gameScoreMapper.toEntity(gameScoreDto);
+        gameScore.setDateCreated(new Date());
+
+        GameScore savedGameScore = gameScoreRepository.save(gameScore);
         ExperienceUpdateDto result = new ExperienceUpdateDto();
         StringBuilder responseMessage = new StringBuilder("");
         responseMessage.append("Game score saved. ");
@@ -196,6 +199,18 @@ public class GameServiceImpl implements GameService {
         result.setUser(userMapper.toDto(savedUser));
 
         return result;
+    }
+
+    @Override
+    public List<GameScoreDto> findGameScoresByDateCreated(Date date) {
+        List<GameScore> result = gameScoreRepository.findAllByDateCreated(date, PageRequest.of(0, 5));
+        result.forEach(gameScore -> {
+            gameScore.getGame().setCreator(null);
+            gameScore.getGame().setVerificationStatus(null);
+            gameScore.getGame().setPlayers(null);
+            gameScore.getGame().setStrategies(null);
+        });
+        return gameScoreMapper.toDtoList(result);
     }
 
     private int calculateExperience(GameScore savedGameScore) {

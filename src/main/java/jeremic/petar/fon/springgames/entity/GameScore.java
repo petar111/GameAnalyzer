@@ -1,6 +1,7 @@
 package jeremic.petar.fon.springgames.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,18 @@ public class GameScore {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+
+    @Column(name = "date_created")
+    @Temporal(TemporalType.DATE)
+    private Date dateCreated;
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
     public Long getId() {
         return id;

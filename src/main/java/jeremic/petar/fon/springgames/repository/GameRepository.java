@@ -2,6 +2,7 @@ package jeremic.petar.fon.springgames.repository;
 
 import jeremic.petar.fon.springgames.entity.Game;
 import jeremic.petar.fon.springgames.entity.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -18,6 +19,4 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Override
     <S extends Game> S save(S s);
 
-    @Override
-    List<Game> findAll();
 }

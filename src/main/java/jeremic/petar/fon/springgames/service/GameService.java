@@ -12,7 +12,7 @@ public interface GameService {
 
     GameDTO findById(Long id);
 
-    List<GameInfoDto> findAllInfo();
+    List<GameInfoDto> findAllInfo(int page, int pageSize);
 
     GameDTO save(GameDTO game);
 
@@ -31,4 +31,6 @@ public interface GameService {
     GameVerificationResponseDto attemptVerification(VerificationRequest verificationRequest);
 
     List<GameScoreDto> findGameScoresByDateCreated(Date date);
+
+    Long findAllCount();
 }

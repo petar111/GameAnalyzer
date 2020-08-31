@@ -16,6 +16,7 @@ import jeremic.petar.fon.springgames.mapper.UserMapper;
 import jeremic.petar.fon.springgames.repository.*;
 import jeremic.petar.fon.springgames.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -62,8 +63,16 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<GameInfoDto> findAllInfo() {
-        return gameMapper.toListGameInfoDto(gameRepository.findAll());
+    public List<GameInfoDto> findAllInfo(int page, int pageSize) {
+        Page<Game> gamesPage = gameRepository.findAll(PageRequest.of(page, pageSize));
+        List<Game> result = gamesPage.getContent();
+
+        return gameMapper.toListGameInfoDto(result);
+    }
+
+    @Override
+    public Long findAllCount() {
+        return (long) gameRepository.findAll().size();
     }
 
     @Override
@@ -212,6 +221,8 @@ public class GameServiceImpl implements GameService {
         });
         return gameScoreMapper.toDtoList(result);
     }
+
+
 
     private int calculateExperience(GameScore savedGameScore) {
         int result = calculateExperienceOnHighScore(savedGameScore);

@@ -41,10 +41,17 @@ public class GameController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<GameInfoDto>> findAll(){
-        List<GameInfoDto> result = gameService.findAllInfo();
+    public ResponseEntity<List<GameInfoDto>> findAll(@RequestParam int page, @RequestParam int pageSize){
+        List<GameInfoDto> result = gameService.findAllInfo(page, pageSize);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/all/count")
+    public ResponseEntity<Long> findAllCount(){
+        Long result = gameService.findAllCount();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
     @PostMapping(path = "insert")
     public ResponseEntity<String> insertGame(@RequestBody GameDTO game){

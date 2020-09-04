@@ -64,7 +64,8 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameInfoDto> findAllInfo(int page, int pageSize) {
-        Page<Game> gamesPage = gameRepository.findAll(PageRequest.of(page, pageSize));
+//        Page<Game> gamesPage = gameRepository.findAll(PageRequest.of(page, pageSize));
+        Page<Game> gamesPage = gameRepository.findAllByOrderByName(PageRequest.of(page, pageSize));
         List<Game> result = gamesPage.getContent();
 
         return gameMapper.toListGameInfoDto(result);

@@ -5,6 +5,13 @@ public class HttpResponseBody<T> {
     private String message;
     private T responseObject;
 
+
+    public HttpResponseBody(String signal, String message, T responseObject) {
+        this.signal = signal;
+        this.message = message;
+        this.responseObject = responseObject;
+    }
+
     public String getSignal() {
         return signal;
     }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface RankRepository extends JpaRepository<Rank, Long> {
-    Optional<Rank> findFirstByExperienceMaxGreaterThanAndExperienceMinLessThan(int experienceForMax, int experienceForMin);
+    Optional<Rank> findFirstByExperienceMaxGreaterThanEqualAndExperienceMinLessThanEqual(int experienceForMax, int experienceForMin);
 }

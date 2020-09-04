@@ -1,6 +1,7 @@
 package jeremic.petar.fon.springgames.controller;
 
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.FollowingRequestDto;
 import jeremic.petar.fon.springgames.dto.HttpResponseBody;
 import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
@@ -61,6 +62,38 @@ public class UserController {
     public List<GameInfoDto> findGamesByCreatorId(@PathVariable Long id){
 
         List<GameInfoDto> result = userService.findGamesById(id);
+
+        return result;
+    }
+
+    @PostMapping(path = "follow")
+    public HttpResponseBody<String> follow(@RequestBody FollowingRequestDto followingRequest){
+
+        HttpResponseBody<String> result = userService.follow(followingRequest);
+
+        return result;
+    }
+
+    @PostMapping(path = "un-follow")
+    public HttpResponseBody<String> unFollow(@RequestBody FollowingRequestDto followingRequest){
+
+        HttpResponseBody<String> result = userService.unFollow(followingRequest);
+
+        return result;
+    }
+
+    @GetMapping(path = "{id}/is-following/{followingId}")
+    public Boolean isUserFollowing(@PathVariable Long id, @PathVariable Long followingId){
+
+        Boolean result = userService.isFollowing(id, followingId);
+
+        return result;
+    }
+
+    @GetMapping(path = "@/{username}")
+    public UserDto isUserFollowing(@PathVariable String username){
+
+        UserDto result = userService.findByUsername(username);
 
         return result;
     }

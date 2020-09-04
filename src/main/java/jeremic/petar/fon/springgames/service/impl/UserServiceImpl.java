@@ -1,8 +1,11 @@
 package jeremic.petar.fon.springgames.service.impl;
 
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.FollowingRequestDto;
+import jeremic.petar.fon.springgames.dto.HttpResponseBody;
 import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
+import jeremic.petar.fon.springgames.entity.FollowingFollower;
 import jeremic.petar.fon.springgames.entity.Rank;
 import jeremic.petar.fon.springgames.entity.User;
 import jeremic.petar.fon.springgames.exception.user.RankNotFoundException;
@@ -148,8 +151,54 @@ public class UserServiceImpl implements UserService {
         )));
     }
 
+    @Override
+    public HttpResponseBody<String> follow(FollowingRequestDto followingRequest) {
+        User userFollower = userRepository.findById(followingRequest.getFollowerId()).orElseThrow(
+                () -> new UserNotFoundException("User with id " + followingRequest.getFollowerId() + " not found")
+        );
+        User userFollowed = userRepository.findById(followingRequest.getFollowingId()).orElseThrow(
+                () -> new UserNotFoundException("User with id " + followingRequest.getFollowingId() + " not found")
+        );
+        FollowingFollower followingFollower = new FollowingFollower();
+        followingFollower.setFollower(userFollower);
+        followingFollower.setFollowed(userFollowed);
+
+        followingFollowerRepository.save(followingFollower);
+
+
+        return new HttpResponseBody<>("FOLLOWING_INSERTED", "Following is inserted.", "");
+    }
+
+    @Override
+    public HttpResponseBody<String> unFollow(FollowingRequestDto followingRequest) {
+        User userFollower = userRepository.findById(followingRequest.getFollowerId()).orElseThrow(
+                () -> new UserNotFoundException("User with id " + followingRequest.getFollowerId() + " not found")
+        );
+        User userFollowed = userRepository.findById(followingRequest.getFollowingId()).orElseThrow(
+                () -> new UserNotFoundException("User with id " + followingRequest.getFollowingId() + " not found")
+        );
+
+
+
+        followingFollowerRepository.deleteById(followingFollowerRepository.findByFollower_IdAndFollowed_Id(
+                followingRequest.getFollowerId(), followingRequest.getFollowingId()
+        ).orElseThrow(
+                () -> new RuntimeException()
+        ).getId());
+
+        return new HttpResponseBody<>("FOLLOWING_DELETED", "Following is deleted.", "");
+    }
+
+    @Override
+    public Boolean isFollowing(Long id, Long followingId) {
+
+        List<FollowingFollower> result = followingFollowerRepository.findAllByFollower_IdAndFollowed_Id(id, followingId);
+
+        return result.size() == 1;
+    }
+
     private Rank resolveRankByUser(User user) {
-        return rankRepository.findFirstByExperienceMaxGreaterThanAndExperienceMinLessThan(user.getExperience(), user.getExperience()).orElseThrow(
+        return rankRepository.findFirstByExperienceMaxGreaterThanEqualAndExperienceMinLessThanEqual(user.getExperience(), user.getExperience()).orElseThrow(
                 () -> new RankNotFoundException("Rank between not found")
         );
     }

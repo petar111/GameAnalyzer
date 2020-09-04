@@ -1,7 +1,10 @@
 package jeremic.petar.fon.springgames.service;
 
 
+import com.sun.deploy.net.HttpResponse;
 import jeremic.petar.fon.springgames.dto.ExperienceUpdateDto;
+import jeremic.petar.fon.springgames.dto.FollowingRequestDto;
+import jeremic.petar.fon.springgames.dto.HttpResponseBody;
 import jeremic.petar.fon.springgames.dto.UserDto;
 import jeremic.petar.fon.springgames.dto.game.GameInfoDto;
 import jeremic.petar.fon.springgames.entity.User;
@@ -24,4 +27,10 @@ public interface UserService {
     ExperienceUpdateDto saveExperience(ExperienceUpdateDto experienceUpdateDto);
 
     List<GameInfoDto> findGamesById(Long id);
+
+    HttpResponseBody<String> follow(FollowingRequestDto followingRequest);
+
+    HttpResponseBody<String> unFollow(FollowingRequestDto followingRequest);
+
+    Boolean isFollowing(Long id, Long followingId);
 }
